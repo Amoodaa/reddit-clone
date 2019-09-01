@@ -1,7 +1,10 @@
-exports.formatData = (listsArray, itemsArray) => {
-  listsArray.forEach(list => {
-    list.item = itemsArray.filter(e => e.list_id === list.id);
-    return list;
+exports.formatData = comments => {
+  comments.reverse().forEach(ele => {
+    if (ele.parent_comment) {
+      const parent = comments.find(ele2 => ele2.id === ele.parent_comment);
+      if (!parent.children) parent.children = [];
+      parent.children.push(ele);
+    }
   });
-  return listsArray;
+  return comments.filter(e => e.parent_comment === null && e.parent_post === null);
 };

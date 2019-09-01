@@ -7,8 +7,8 @@ router.get('/comments', comment.getComments);
 // (req, res) => {
 //   res.send('hi');
 // });
-// router.get('/post/:id');
+router.get('/post/:id', comment.getPostWithCommentsById);
 router.all('*', client);
-router.use(server);
+// router.use(server);
 
 module.exports = router;
