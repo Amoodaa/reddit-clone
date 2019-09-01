@@ -1,14 +1,15 @@
-const Joi = require('@hapi/joi');
+const yup = require('yup');
 
-const loginSchema = Joi.object().keys({
-  username: Joi.string()
-    .alphanum()
+const loginSchema = yup.object({
+  username: yup
+    .string()
     .min(2)
     .max(30)
     .required(),
-  password: Joi.string()
-    .regex(/^[a-zA-Z0-9]{8,30}$/)
+  password: yup
+    .string()
+    .matches(/^[a-zA-Z0-9]{8,30}$/)
     .required()
 });
 
-exports.loginValidate = loginData => Joi.validate(loginData, loginSchema);
+exports.login = loginData => loginSchema.validate(loginData);
