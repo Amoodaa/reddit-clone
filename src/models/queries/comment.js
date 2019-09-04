@@ -20,8 +20,8 @@ exports.insert = comment => {
   const { content, parentPost, parentComment, userId } = comment;
   const sql = {
     text:
-      'INSERT INTO clone_comment (content,votes,parent_post,parent_comment,user_id) VALUES ($1,$2,$3,$4,$5) RETURNING *',
-    values: [content, 0, parentPost, parentComment, userId]
+      'INSERT INTO clone_comment (content,parent_post,parent_comment,user_id) VALUES ($1,$2,$3,$4,CURRENT_TIMESTAMP) RETURNING *',
+    values: [content, parentPost, parentComment, userId]
   };
   return connection.query(sql);
 };
