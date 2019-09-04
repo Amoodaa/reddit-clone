@@ -1,21 +1,28 @@
+// const jwt = require('express-jwt');
 const router = require('express').Router();
 
-// const jwt = require('express-jwt');
-const { client, server } = require('./error');
+const home = require('./home');
 const comment = require('./comment');
 const signup = require('./signup');
 const login = require('./login');
+const logout = require('./logout');
+const { client, server } = require('./error');
 
+router.get('/', home.get);
 router.get('/comments', comment.getComments);
-// (req, res) => {
-//   res.send('hi');
-// });
 router.get('/post/:id', comment.getPostWithCommentsById);
-router.post('/signup', signup.post);
-router.post('/login', login.post);
-// router.use(jwt({ secret: process.env.JWT_KEY }));
+router
+  .route('/signup')
+  .get(signup.get)
+  .post(signup.post);
+router
+  .route('/login')
+  .get(login.get)
+  .post(login.post);
+router.get('/logout', logout.get);
 
-router.post('/postComment', comment.postComment);
+// router.use(jwt({ secret: process.env.JWT_KEY }));
+// router.post('/postComment', comment.postComment);
 
 router.all('*', client);
 router.use(server);
