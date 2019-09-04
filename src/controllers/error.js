@@ -3,5 +3,6 @@ exports.client = (req, res) => {
 };
 
 exports.server = (err, req, res, next) => {
-  res.status(500).send(err.message);
+  console.log(err);
+  res.status(500).send('Internal Server Error');
 };
